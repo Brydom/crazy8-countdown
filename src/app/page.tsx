@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <div>
-      <p className="mb-8 text-2xl">Who's playing</p>
+      <p className="mb-8 text-2xl">Who&apos;s playing</p>
       <PlayerSelector players={players} setPlayers={setPlayers} />
       <Link
         href={{
