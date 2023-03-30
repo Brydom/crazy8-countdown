@@ -1,8 +1,10 @@
 import { RuleInterface } from "./interfaces";
 
-const rules: {
+interface RulesInterface {
   [key: string]: RuleInterface[];
-} = {
+}
+
+const rules: RulesInterface = {
   bc: [
     {
       value: "J",
