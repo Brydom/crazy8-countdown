@@ -26,6 +26,7 @@
 
   :root {
     --color-ink: #1c1b22;
+    --color-ink-light: #2c2b32;
     --color-reverse: #fff;
     --color-reverse-light: #f5f5f5;
   }
@@ -37,6 +38,7 @@
 
     :root {
       --color-ink: #fff;
+      --color-ink-light: #f5f5f5;
       --color-reverse: #1c1b22;
       --color-reverse-light: #2c2b32;
     }

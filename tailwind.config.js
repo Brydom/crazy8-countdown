@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         ink: "var(--color-ink)",
+        "ink-light": "var(--color-ink-light)",
         reverse: "var(--color-reverse)",
         "reverse-light": "var(--color-reverse-light)",
         primary: "#7cce7c",

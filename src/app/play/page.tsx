@@ -1,17 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { SettingsInterface, RuleInterface } from "@/utils/interfaces";
-import { setSetting } from "@/utils/helpers";
 import Card from "@/components/Card";
-import rules from "@/utils/rules";
+import { cardValueMap, rulesets } from "@/utils/const";
+import RuleModal from "@/components/RuleModal";
 
 export default function Play() {
+  const searchParams = useSearchParams();
+
   const [settings, setSettings] = useState<SettingsInterface>({
-    rules: "bc",
-    startsAt: 8,
+    rules: (searchParams.get("rules") as SettingsInterface["rules"]) || "bc",
+    startsAt: +(searchParams.get("startsAt") || 8),
     clockwise: true,
   });
   const [players, setPlayers] = useState<string[]>([]);
@@ -20,7 +21,15 @@ export default function Play() {
   >({});
   const [winner, setWinner] = useState<string>();
 
-  const searchParams = useSearchParams();
+  const setSetting = (
+    key: keyof SettingsInterface,
+    value: SettingsInterface[keyof SettingsInterface]
+  ) => {
+    setSettings((settings: SettingsInterface) => ({
+      ...settings,
+      [key]: value,
+    }));
+  };
 
   const handleClickPlayer = (player: string) => {
     setPlayerCardCount((prev) => {
@@ -35,7 +44,8 @@ export default function Play() {
     });
   };
 
-  useEffect(() => {
+  const initializeGame = useCallback(() => {
+    setWinner("");
     setPlayers(searchParams.getAll("players"));
 
     if (searchParams.get("rules")) {
@@ -60,8 +70,12 @@ export default function Play() {
     );
   }, [searchParams, settings.startsAt]);
 
+  useEffect(() => {
+    initializeGame();
+  }, [initializeGame, searchParams, settings.startsAt]);
+
   return (
-    <div className="flex-grow flex flex-col">
+    <div className="flex flex-col flex-grow">
       <div>
         <p className="mb-8 text-2xl">{winner ? `${winner} wins!` : "Play"}</p>
         {!winner && (
@@ -73,16 +87,14 @@ export default function Play() {
                   key={player}
                   onClick={() => handleClickPlayer(player)}
                 >
-                  {player}: {playerCardCount[player]}
+                  {player}: {cardValueMap[playerCardCount[player]]}
                 </button>
               ))}
             </div>
             <div className="flex flex-wrap gap-4">
               <button
                 className="button"
-                onClick={() =>
-                  setSetting(setSettings, "clockwise", !settings.clockwise)
-                }
+                onClick={() => setSetting("clockwise", !settings.clockwise)}
               >
                 Play direction:{" "}
                 {settings.clockwise ? "Clockwise" : "Counter-clockwise"}
@@ -90,31 +102,11 @@ export default function Play() {
             </div>
           </div>
         )}
-        <Link
-          href={{
-            pathname: "/play",
-            query: {
-              players: searchParams.getAll("players"),
-              rules: settings.rules,
-              startsAt: settings.startsAt,
-            },
-          }}
-          className="button button--bland mt-6"
-        >
+        <button onClick={initializeGame} className="mt-6 button button--bland">
           Restart
-        </Link>
+        </button>
       </div>
-      <div className="mt-auto flex flex-col gap-2 opacity-50 text-sm">
-        {rules[settings.rules].map((rule: RuleInterface) => (
-          <div
-            className="gap-2 flex items-center"
-            key={`${rule.suit}-${rule.value}`}
-          >
-            <Card suit={rule.suit} value={rule.value} />
-            <p>{rule.action}</p>
-          </div>
-        ))}
-      </div>
+      <RuleModal rules={settings.rules} />
     </div>
   );
 }

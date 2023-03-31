@@ -4,47 +4,35 @@ import Link from "next/link";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { SettingsInterface } from "@/utils/interfaces";
-import { setSetting } from "@/utils/helpers";
 
 export default function Settings() {
-  const [settings, setSettings] = useState<SettingsInterface>({
-    rules: "bc",
-    startsAt: 13,
-  });
+  const [rules, setRules] = useState<SettingsInterface["rules"]>("bc");
+  const [startsAt, setStartsAt] = useState<SettingsInterface["startsAt"]>(8);
 
   const searchParams = useSearchParams();
 
   return (
     <div>
       <p className="mb-8 text-2xl">Choose your settings</p>
-      <div className="flex flex-col gap-4 items-start">
+      <div className="flex flex-col items-start gap-4">
         <select
           defaultValue=""
-          className="button button--bland w-1/2"
-          onSelect={(e) =>
-            setSetting(
-              setSettings,
-              "rules",
-              e.currentTarget.value as SettingsInterface["rules"]
-            )
+          className="w-1/2 button button--bland"
+          onChange={(e) =>
+            setRules(e.currentTarget.value as SettingsInterface["rules"])
           }
         >
           <option disabled value="">
             Ruleset
           </option>
-          <option value="official">Official (default)</option>
-          <option value="bc">British Columbia</option>
+          <option value="bc">British Columbia (default)</option>
           <option value="mb">Manitoba</option>
         </select>
         <select
           defaultValue=""
-          className="button button--bland w-1/2"
-          onSelect={(e) =>
-            setSetting(
-              setSettings,
-              "startsAt",
-              +e.currentTarget.value as SettingsInterface["startsAt"]
-            )
+          className="w-1/2 button button--bland"
+          onChange={(e) =>
+            setStartsAt(+e.currentTarget.value as SettingsInterface["startsAt"])
           }
         >
           <option disabled value="">
@@ -70,10 +58,11 @@ export default function Settings() {
           pathname: "/play",
           query: {
             players: searchParams.getAll("players"),
-            ...settings,
+            rules,
+            startsAt,
           },
         }}
-        className="button mt-6"
+        className="mt-6 button"
       >
         Play &rarr;
       </Link>

@@ -1,5 +1,5 @@
 export interface SettingsInterface {
-  rules: "bc" | "mb" | "standard";
+  rules: "bc" | "mb";
   startsAt: number;
   clockwise?: boolean;
 }
