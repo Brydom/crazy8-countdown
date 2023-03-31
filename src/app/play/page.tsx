@@ -2,9 +2,8 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import { SettingsInterface, RuleInterface } from "@/utils/interfaces";
-import Card from "@/components/Card";
-import { cardValueMap, rulesets } from "@/utils/const";
+import { SettingsInterface } from "@/utils/interfaces";
+import { cardValueMap } from "@/utils/const";
 import RuleModal from "@/components/RuleModal";
 
 export default function Play() {
