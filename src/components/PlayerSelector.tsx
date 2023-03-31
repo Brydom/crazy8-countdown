@@ -40,6 +40,7 @@ export default function PlayerSelector({
         onChange={(e) => setInputValue(e.currentTarget.value)}
         onKeyUp={onKeyDown}
         placeholder="Enter a name"
+        autoCapitalize="words"
       />
       <div className="stack">
         {players.map((player) => (
