@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { SettingsInterface } from "@/utils/interfaces";
@@ -53,6 +53,7 @@ export default function Settings() {
           <option value="1">A</option>
         </select>
       </div>
+
       <Link
         href={{
           pathname: "/play",
@@ -63,8 +64,9 @@ export default function Settings() {
           },
         }}
         className="mt-6 button"
+        arrow
       >
-        Play &rarr;
+        Start playing
       </Link>
     </div>
   );

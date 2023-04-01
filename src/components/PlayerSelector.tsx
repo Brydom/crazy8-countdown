@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 
 interface PlayerSelectorProps {
@@ -15,7 +13,9 @@ export default function PlayerSelector({
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (["Enter", "Tab", ",", " "].includes(e.key)) {
-      const formattedInput = inputValue.trim().replace(/,/g, "");
+      const sanitizedInput = inputValue.trim().replace(/,/g, "");
+      const formattedInput =
+        sanitizedInput.charAt(0).toUpperCase() + sanitizedInput.slice(1);
 
       if (!formattedInput) return;
 

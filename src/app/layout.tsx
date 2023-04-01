@@ -18,7 +18,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Link href="/">
             <h1>Crazy Eights Countdown</h1>
           </Link>
-          {/* <p className="text-blue-400">Selecting players</p> */}
         </header>
         <main className="relative flex flex-col flex-grow mb-4">
           {children}

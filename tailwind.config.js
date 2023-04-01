@@ -4,6 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        dark: "#1c1b22",
+        light: "#fff",
         ink: "var(--color-ink)",
         "ink-light": "var(--color-ink-light)",
         reverse: "var(--color-reverse)",

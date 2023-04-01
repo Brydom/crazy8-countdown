@@ -52,7 +52,7 @@
   }
 
   .badge {
-    @apply bg-primary bg-opacity-20 text-ink rounded-md p-2;
+    @apply bg-white text-black rounded-md p-2;
   }
 
   .stack {
@@ -60,14 +60,22 @@
   }
 
   .button {
-    @apply bg-primary text-reverse rounded-md p-2 inline-block;
+    @apply bg-primary text-reverse rounded-md p-2 inline-block transition;
   }
 
   .button--secondary {
     @apply bg-secondary text-ink;
   }
 
+  .button--reverse {
+    @apply bg-ink-light text-reverse;
+  }
+
   .button--bland {
     @apply bg-reverse-light text-ink;
+  }
+
+  .button--disabled {
+    @apply bg-reverse-light text-ink-light cursor-not-allowed;
   }
 }

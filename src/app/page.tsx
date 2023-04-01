@@ -1,8 +1,7 @@
 "use client";
 
 import PlayerSelector from "@/components/PlayerSelector";
-import clsx from "clsx";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useState } from "react";
 
 export default function Home() {
@@ -17,11 +16,12 @@ export default function Home() {
           pathname: "/settings",
           query: { players },
         }}
-        className={clsx("button mt-6", {
-          "opacity-50 pointer-events-none": players.length < 2,
-        })}
+        disabled={players.length < 2}
+        disabledClassName="button--disabled"
+        className="mt-6 button"
+        arrow
       >
-        Settings &rarr;
+        Choose your settings
       </Link>
     </div>
   );

@@ -82,7 +82,7 @@ export default function Play() {
             <div className="flex flex-wrap gap-4">
               {players.map((player) => (
                 <button
-                  className="button button--secondary"
+                  className="button button--reverse"
                   key={player}
                   onClick={() => handleClickPlayer(player)}
                 >
